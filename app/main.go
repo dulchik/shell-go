@@ -43,8 +43,12 @@ func main() {
 		}
 		if parts[0] != "" {
 			if path, _ := exec.LookPath(parts[0]); path != "" {
-				out, _ := exec.Command(parts[0], parts[1:]...).Output()
-				fmt.Println(string(out))
+				cmd := exec.Command(parts[0], parts[1:]...)
+				cmd.Stdout = os.Stdout
+				if err := cmd.Run(); err != nil {
+					fmt.Fprintln(os.Stderr, "Error running command", err)
+					os.Exit(1)
+				}
 			}
 			continue
 		}
