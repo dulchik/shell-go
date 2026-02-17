@@ -50,7 +50,6 @@ func main() {
 					os.Exit(1)
 				}
 			}
-			continue
 		}
 
 		fmt.Println(command[:len(command)-1] + ": command not found")
