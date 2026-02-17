@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"bufio"
+	"os/exec"
 	"strings"
 	"os"
 )
@@ -28,9 +29,12 @@ func main() {
 			fmt.Println(strings.Join(parts[1:], " "))
 			continue	
 		}
-		if parts[0] == "type" {
+		if parts[0] == "type" {		
 			if parts[1] == "type" || parts[1] == "echo" || parts[1] == "exit" {
 				fmt.Println(parts[1], "is a shell builtin")
+				continue
+			} else if path, err := exec.LookPath(parts[1]); err == nil {
+				fmt.Println(parts[1], "is", path)
 				continue
 			} else {
 				fmt.Println(parts[1] + ": not found")
