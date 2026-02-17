@@ -45,7 +45,6 @@ func main() {
 			if path, _ := exec.LookPath(parts[0]); path != "" {
 				out, _ := exec.Command(parts[0], parts[1:]...).Output()
 				fmt.Println(string(out))
-				continue
 			}
 			continue
 		}
