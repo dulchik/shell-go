@@ -41,6 +41,17 @@ func main() {
 				continue
 			}
 		}
+		if parts[0] != "" {
+			if path, _ := exec.LookPath(parts[0]); path != "" {
+				cmd := exec.Command(parts[0], parts[1:]...)
+				err := cmd.Run()
+				if err != nil {
+					fmt.Fprintln(os.Stderr, "Error executing program:", err)
+					os.Exit(1)
+				}
+				continue
+			}
+		}
 
 		fmt.Println(command[:len(command)-1] + ": command not found")
 
