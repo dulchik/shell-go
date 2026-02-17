@@ -28,6 +28,15 @@ func main() {
 			fmt.Println(strings.Join(parts[1:], " "))
 			continue	
 		}
+		if parts[0] == "type" {
+			if parts[1] == "type" || parts[1] == "echo" || parts[1] == "exit" {
+				fmt.Println(parts[1], "is a shell builtin")
+				continue
+			} else {
+				fmt.Println(parts[1] + ": command not found")
+				continue
+			}
+		}
 
 		fmt.Println(command[:len(command)-1] + ": command not found")
 
