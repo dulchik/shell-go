@@ -49,6 +49,7 @@ func main() {
 					fmt.Fprintln(os.Stderr, "Error running command", err)
 					os.Exit(1)
 				}
+				continue
 			}
 		}
 
