@@ -18,10 +18,16 @@ func main() {
 			fmt.Fprintln(os.Stderr, "Error reading input:", err)
 			os.Exit(1)
 		}
-		
-		if strings.Trim(command, "\n") == "exit" {
+
+		parts := strings.Split(command[:len(command)-1], " ")
+
+		if parts[0] == "exit" {
 			os.Exit(0)
-		}	
+		}
+		if parts[0] == "echo" {
+			fmt.Println(strings.Join(parts[1:], " "))
+			continue	
+		}
 
 		fmt.Println(command[:len(command)-1] + ": command not found")
 
