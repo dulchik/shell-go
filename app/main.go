@@ -41,6 +41,7 @@ func main() {
 				continue
 			}
 		}
+
 		if parts[0] != "" {
 			if path, _ := exec.LookPath(parts[0]); path != "" {
 				cmd := exec.Command(parts[0], parts[1:]...)
