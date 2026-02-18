@@ -30,7 +30,7 @@ func main() {
 			continue	
 		}
 		if parts[0] == "type" {		
-			if parts[1] == "type" || parts[1] == "echo" || parts[1] == "exit" {
+			if parts[1] == "type" || parts[1] == "echo" || parts[1] == "exit" || parts[1] == "pwd" {
 				fmt.Println(parts[1], "is a shell builtin")
 				continue
 			} else if path, err := exec.LookPath(parts[1]); err == nil {
@@ -41,7 +41,14 @@ func main() {
 				continue
 			}
 		}
-
+		if parts[0] == "pwd" {
+			path, err := os.Getwd()
+			if err != nil {
+				fmt.Fprintln(os.Stderr, "Error getting absolute path", err)
+				os.Exit(1)
+			}
+			fmt.Println(path)
+		}
 		if parts[0] != "" {
 			if path, _ := exec.LookPath(parts[0]); path != "" {
 				cmd := exec.Command(parts[0], parts[1:]...)
