@@ -52,7 +52,7 @@ func main() {
 		}
 		if parts[0] == "cd" {
 			if _, err := os.Stat(parts[1]); os.IsNotExist(err) {
-				fmt.Println("cd: ", parts[1], ": No such file or directory")
+				fmt.Println("cd: " + parts[1] + ": No such file or directory")
 				continue
 			}
 			err = os.Chdir(parts[1])
