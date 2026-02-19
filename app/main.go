@@ -30,7 +30,7 @@ func main() {
 			continue	
 		}
 		if parts[0] == "type" {		
-			if parts[1] == "type" || parts[1] == "echo" || parts[1] == "exit" || parts[1] == "pwd" {
+			if parts[1] == "type" || parts[1] == "echo" || parts[1] == "exit" || parts[1] == "pwd" || parts[1] == "cd" {
 				fmt.Println(parts[1], "is a shell builtin")
 				continue
 			} else if path, err := exec.LookPath(parts[1]); err == nil {
@@ -48,6 +48,17 @@ func main() {
 				os.Exit(1)
 			}
 			fmt.Println(path)
+			continue
+		}
+		if parts[0] == "cd" {
+			if _, err := os.Stat(parts[1]); os.IsNotExist(err) {
+				fmt.Println("cd: ", parts[1], ": No such file or directory")
+				continue
+			}
+			err = os.Chdir(parts[1])
+			if err != nil {
+				fmt.Println("cd: ", parts[1], ": Could not change directory")
+			}
 			continue
 		}
 		if parts[0] != "" {
