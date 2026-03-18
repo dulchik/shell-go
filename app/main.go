@@ -8,17 +8,25 @@ import (
 	"os"
 )
 
-// Ensures gofmt doesn't remove the "fmt" import in stage 1 (feel free to remove this!)
-var _ = fmt.Print
-
 func main() {
+	scanner := bufio.NewScanner(os.Stdin)
 	for {
 		fmt.Print("$ ")
+
+		scanner.Scan()
+		
+		line := scanner.Text()
+		args := strings.Split(line, " ")
+		
 		command, err := bufio.NewReader(os.Stdin).ReadString('\n')
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "Error reading input:", err)
 			os.Exit(1)
 		}
+
+		args := os.Args
+
+		fmt.Println(args)
 
 		parts := strings.Split(command[:len(command)-1], " ")
 
